@@ -39,6 +39,12 @@ public class CompanyDao {
         getSession().persist(dept);
     }
     
+     // 查詢單筆社團
+    public Club getClub(Integer id) {
+        Club club = (Club)getSession().get(Club.class, id);
+        return club;
+    }
+    
     // 查詢所有社團資料
     public List queryAllClubs() {
         List list = getSession().createQuery("from Club c").list();
