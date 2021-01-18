@@ -64,15 +64,8 @@ public class CompanyDao {
     }
     
     // 查詢單筆員工
-    public Employee getEmp(Integer id) {
-        Employee emp = (Employee)getSession().get(Employee.class, id);
-        return emp;
+    public Employee getEmployee(Integer id){
+        Employee employee = (Employee) getSession().get(Employee.class, id);
+        return employee;         
     }
-    
-    // 新增員工
-    @Transactional
-    public void saveEmp(Employee emp) {
-        getSession().persist(emp);
-    }
-    
 }

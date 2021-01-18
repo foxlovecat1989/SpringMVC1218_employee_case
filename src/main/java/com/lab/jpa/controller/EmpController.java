@@ -21,37 +21,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class EmpController {
     
     @Autowired
-    private CompanyDao dao;
+    private CompanyDao companyDao;
     
     @RequestMapping(value = {"/"}, method = {RequestMethod.GET})
     public String read(Model model) {
-        List emp_list = dao.queryAllEmps();
-        List dept_list = dao.queryAllDepts();
-        List club_list = dao.queryAllClubs();
-        Employee emp = new Employee();
+        
+        List emp_list = companyDao.queryAllEmps();
+        List club_list = companyDao.queryAllClubs();
+        List dept_list = companyDao.queryAllDepts();
+        Employee emp = companyDao.getEmployee(2);
         
         model.addAttribute("emp_list", emp_list);
-        model.addAttribute("dept_list", dept_list);
         model.addAttribute("club_list", club_list);
+        model.addAttribute("dept_list", dept_list);
         model.addAttribute("emp", emp);
-        
         return "emp_page";
     }
-    
-    @RequestMapping(value = {"/"}, method = {RequestMethod.POST})
-    //@ResponseBody
-    public String create(@ModelAttribute("emp") Employee emp,
-            @RequestParam Integer[] clubIds) {
-        
-        if(clubIds != null) {
-            for(Integer id : clubIds) {
-                Club club = dao.getClub(id);
-                emp.getClubs().add(club);
-            }
-        }
-        dao.saveEmp(emp);
-        return "redirect: ./";
-        //return emp.toString();
-    }
-    
 }

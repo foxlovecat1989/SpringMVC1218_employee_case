@@ -26,9 +26,9 @@
                     <td valign="top">
                         <!-- 表單 -->
                         <form:form class="pure-form" 
-                                   modelAttribute="emp" 
-                                   method="post" 
-                                   action="${pageContext.request.contextPath}/mvc/emp/" >
+                                                       modelAttribute="emp" 
+                                                       method="post" 
+                                                       action="${pageContext.request.contextPath}/mvc/emp/" >
                             <fieldset>
                                 <legend>Emp Form</legend>
                                 <form:input path="id" readonly="true" /><p />
@@ -36,20 +36,20 @@
                                 <form:input path="salary.money" placeholder="請輸入薪資" /><p />
                                 <form:select path="department.id">
                                     <form:option value="0" label="請選擇" />
-                                    <form:options items="${ dept_list }" itemValue="id" itemLabel="name" />
+                                    <form:options items="${ dept_list }" itemValue="id" itemLabel="name"/>
                                 </form:select><p />
                                 <c:forEach var="club" items="${ club_list }">
+                                    <!-- 判斷要不要打勾 -->  
                                     <input type="checkbox" value="${ club.id }" 
-                                           <c:forEach var="eclub" items="${ emp.clubs }">
-                                               <c:if test="${ eclub.id eq club.id }">
-                                                   checked
-                                               </c:if>
-                                           </c:forEach>
-                                    > ${ club.name }
+                                         <c:forEach var="eclub" items="${ emp.clubs }">
+                                             <c:if test="${ eclub.id eq club.id }">
+                                                 checked
+                                             </c:if>
+                                         </c:forEach>
+                                    >${ club.name } 
                                 </c:forEach><p />
                                 <button type="sumbit" class="pure-button pure-button-primary">Submit</button>
                             </fieldset>
-                            
                         </form:form>
                     </td>
                     <td valign="top">
