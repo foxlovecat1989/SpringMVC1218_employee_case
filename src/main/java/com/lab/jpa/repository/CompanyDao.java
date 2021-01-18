@@ -18,7 +18,9 @@ public class CompanyDao {
     private Session session = null;
     
     private Session getSession() {
-        
+//        if(session != null && session.isConnected() && session.isOpen()) {
+//            return session;
+//        }
         try {
             session = sessionFactory.getCurrentSession();
         } catch (Exception e) {
@@ -67,5 +69,17 @@ public class CompanyDao {
     public Employee getEmployee(Integer id){
         Employee employee = (Employee) getSession().get(Employee.class, id);
         return employee;         
+    }
+    
+    // 新增員工
+    @Transactional
+    public void saveEmployee(Employee employee) {
+        getSession().persist(employee);
+    }
+    
+    // 查詢所有薪資
+    public List queryAllSalary() {
+        List list = getSession().createQuery("from Salary s").list();
+        return list;
     }
 }

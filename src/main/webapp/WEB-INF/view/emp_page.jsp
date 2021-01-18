@@ -40,7 +40,7 @@
                                 </form:select><p />
                                 <c:forEach var="club" items="${ club_list }">
                                     <!-- 判斷要不要打勾 -->  
-                                    <input type="checkbox" value="${ club.id }" 
+                                    <input name="clubIds" type="checkbox" value="${ club.id }" 
                                          <c:forEach var="eclub" items="${ emp.clubs }">
                                              <c:if test="${ eclub.id eq club.id }">
                                                  checked

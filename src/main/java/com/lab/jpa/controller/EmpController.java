@@ -26,15 +26,24 @@ public class EmpController {
     @RequestMapping(value = {"/"}, method = {RequestMethod.GET})
     public String read(Model model) {
         
-        List emp_list = companyDao.queryAllEmps();
+        List salary_list = companyDao.queryAllSalary();
         List club_list = companyDao.queryAllClubs();
         List dept_list = companyDao.queryAllDepts();
-        Employee emp = companyDao.getEmployee(2);
+        List emp_list = companyDao.queryAllEmps();
+        Employee emp = new Employee();
         
         model.addAttribute("emp_list", emp_list);
         model.addAttribute("club_list", club_list);
         model.addAttribute("dept_list", dept_list);
+        model.addAttribute("salary_list", salary_list);
         model.addAttribute("emp", emp);
         return "emp_page";
+    }
+    
+    @RequestMapping(value = {"/"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String create(@ModelAttribute("emp") Employee emp,
+                @RequestParam Integer[] clubIds) {
+        return emp.toString() + Arrays.toString(clubIds);
     }
 }

@@ -37,5 +37,4 @@ public class Salary {
         return "Salary{" + "id=" + id + ", money=" + money + '}';
     }
     
-    
 }
