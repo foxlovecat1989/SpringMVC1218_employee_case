@@ -78,7 +78,7 @@
                                             <td>
                                                 <c:forEach var="club" items="${ emp.clubs }">
                                                     ${ club.name }
-                                                </c:forEach>    
+                                                </c:forEach>   
                                             </td>
                                         </tr>
                                         </c:forEach>

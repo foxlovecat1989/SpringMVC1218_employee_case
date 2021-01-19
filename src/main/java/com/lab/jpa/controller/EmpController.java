@@ -6,6 +6,8 @@ import com.lab.jpa.repository.CompanyDao;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequestMapping("/emp")
@@ -40,10 +43,15 @@ public class EmpController {
         return "emp_page";
     }
     
+    
     @RequestMapping(value = {"/"}, method = {RequestMethod.POST})
-    @ResponseBody
     public String create(@ModelAttribute("emp") Employee emp,
                 @RequestParam Integer[] clubIds) {
-        return emp.toString() + Arrays.toString(clubIds);
+        
+        Arrays.asList(clubIds).stream()
+                .filter(e -> e != null)
+                .forEach(e -> emp.getClubs().add(companyDao.getClub(e)));
+        companyDao.saveEmployee(emp);
+       return "redirect: ./";
     }
 }
